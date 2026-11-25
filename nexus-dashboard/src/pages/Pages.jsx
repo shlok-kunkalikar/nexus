@@ -28,46 +28,6 @@ export function Warnings({ t, gasHistory, events, GAS_LIMIT }) {
   return (
     <div className="grid-2">
 
-      {/* Gas Level */}
-      <Panel
-        title="Gas level"
-        icon={Wind}
-        action={
-          <Badge tone={t.gas > GAS_LIMIT ? 'critical' : 'ok'}>
-            {t.gas > GAS_LIMIT ? 'Leak' : 'Normal'}
-          </Badge>
-        }
-      >
-        <p className="big">
-          {Math.round(t.gas)}
-          <small> ppm</small>
-        </p>
-
-        <Sparkline data={gasHistory} limit={GAS_LIMIT} />
-
-        <p className="muted">
-          Dashed line marks the {GAS_LIMIT} ppm stop threshold.
-        </p>
-      </Panel>
-
-
-      {/* Flame Sensor */}
-      <Panel
-        title="Flame sensor"
-        icon={Flame}
-        action={
-          <Badge tone={t.flame ? 'critical' : 'ok'}>
-            {t.flame ? 'Detected' : 'Clear'}
-          </Badge>
-        }
-      >
-        <p className="muted">
-          When gas or fire is detected, Nexus stops, plays a
-          voice warning and lights the alert LEDs.
-        </p>
-      </Panel>
-
-
       {/* Alert History */}
       <Panel
         title="Alert history"
