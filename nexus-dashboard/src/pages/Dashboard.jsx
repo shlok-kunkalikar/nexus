@@ -23,9 +23,6 @@ export default function Dashboard({ t, setMode }) {
         <Panel title="Robot status" icon={Radar}>
           <dl className="kv"><dt>Connection</dt>
             <dd><Badge tone={t.online ? 'ok' : 'critical'}>{t.online ? 'Online' : 'Offline'}</Badge></dd></dl>
-          <dl className="kv"><dt>Obstacle distance</dt><dd>{Math.round(t.distance)} cm</dd></dl>
-          <dl className="kv"><dt>Line sensors</dt>
-            <dd className="ir">{['L', 'C', 'R'].map((k, i) => <span key={k} className={t.ir[i] ? 'hit' : ''}>{k}</span>)}</dd></dl>
         </Panel>
 
         <Panel title="Battery" icon={BatteryMedium}>
@@ -38,10 +35,7 @@ export default function Dashboard({ t, setMode }) {
           </div>
         </Panel>
 
-        <Panel title="Safety sensors" icon={Wind}>
-          <dl className="kv"><dt>Gas (MQ-2)</dt><dd>{Math.round(t.gas)} ppm</dd></dl>
-          <dl className="kv"><dt>Flame</dt><dd><Badge tone={t.flame ? 'critical' : 'ok'}>{t.flame ? 'Detected' : 'Clear'}</Badge></dd></dl>
-        </Panel>
+    
       </aside>
     </div>
   )
