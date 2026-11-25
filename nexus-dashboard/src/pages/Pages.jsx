@@ -10,12 +10,13 @@ import {
   TriangleAlert,
   Info,
   ChevronDown,
+  Eye,
+  Cpu,
 } from 'lucide-react'
 
 import { Panel, Badge, Sparkline, time } from '../components/ui'
 
 const CAM_URL = import.meta.env.VITE_CAM_URL
-
 
 // ========================================
 // WARNINGS PAGE
@@ -49,7 +50,6 @@ export function Warnings({ t, gasHistory, events, GAS_LIMIT }) {
         </p>
       </Panel>
 
-
       {/* Flame Sensor */}
       <Panel
         title="Flame sensor"
@@ -65,7 +65,6 @@ export function Warnings({ t, gasHistory, events, GAS_LIMIT }) {
           voice warning and lights the alert LEDs.
         </p>
       </Panel>
-
 
       {/* Alert History */}
       <Panel
@@ -92,7 +91,6 @@ export function Warnings({ t, gasHistory, events, GAS_LIMIT }) {
     </div>
   )
 }
-
 
 // ========================================
 // CAMERA PAGE
@@ -130,7 +128,6 @@ export function CameraPage({ state }) {
     </Panel>
   )
 }
-
 
 // ========================================
 // ATTENDANCE PAGE
@@ -171,7 +168,6 @@ export function Attendance({ attendance, tapCard }) {
           <small> currently inside</small>
         </p>
       </Panel>
-
 
       {/* Attendance Log */}
       <Panel title="Attendance log" icon={UserCheck}>
@@ -222,20 +218,12 @@ export function Attendance({ attendance, tapCard }) {
   )
 }
 
-
 // ========================================
 // ABOUT PAGE
 // ========================================
 
 export function About() {
-
-  // Accordion state
   const [open, setOpen] = useState(null)
-
-
-  // Hardware specifications
-  
-
 
   // Nexus features
   const features = [
@@ -247,7 +235,6 @@ export function About() {
       description:
         'NEXUS continuously scans its surroundings for gas leaks, flames, and obstacles — flagging danger the moment it is detected and triggering safety alerts on the dashboard automatically.',
     },
-
     {
       key: 'surveillance',
       number: 2,
@@ -256,7 +243,6 @@ export function About() {
       description:
         'A built-in live camera lets NEXUS act as a roaming set of eyes — stream video in real time and keep watch over the home or office as it moves around.',
     },
-
     {
       key: 'attendance',
       number: 3,
@@ -266,7 +252,6 @@ export function About() {
       description:
         'When switched to Office mode, NEXUS handles staff attendance automatically — logging check-ins as people pass by, no manual sign-in needed.',
     },
-
     {
       key: 'vacuum',
       number: 4,
@@ -275,7 +260,6 @@ export function About() {
       description:
         'A built-in vacuum module means NEXUS keeps floors clean during its regular movement around the space — everyday utility on top of monitoring and safety.',
     },
-
     {
       key: 'tray',
       number: 5,
@@ -286,100 +270,159 @@ export function About() {
     },
   ]
 
-
   return (
     <Panel title="About Nexus" icon={Info}>
 
-      {/* Key Features Heading */}
-      <div className="card-title">
-        <Info size={18} />
-        Key Features
+      {/* About Section Label */}
+      <div className="about-section-label">
+        Project Overview
       </div>
 
+      {/* Two Separate Cards */}
+      <div className="about-grid">
 
-      {/* Features Accordion */}
-      <div className="accordion-list">
+        {/* ================= VISION CARD ================= */}
+        <div className="card about-card vision-card">
 
-        {features.map((feature) => (
-          <div
-            className="accordion-item"
-            key={feature.key}
-            data-key={feature.key}
-          >
+          <div className="about-card-header">
+            <div className="about-icon vision-icon">
+              <Eye size={22} />
+            </div>
 
-            {/* Accordion Header */}
-            <button
-              type="button"
-              className="accordion-header"
-              onClick={() =>
-                setOpen(
-                  open === feature.key
-                    ? null
-                    : feature.key
-                )
-              }
-              aria-expanded={open === feature.key}
-            >
+            <div>
+              <h3>Our Vision</h3>
+              <span className="about-card-subtitle">
+                Building a smarter future
+              </span>
+            </div>
+          </div>
 
-              <div className="accordion-number">
-                {feature.number}
+          <div className="vision-quote">
+            To create a smarter, safer and more responsive
+            environment through connected robotics and
+            intelligent sensing.
+          </div>
+
+          <p className="about-description">
+            NEXUS is envisioned as more than just a mobile robot.
+            It is a connected safety and monitoring system
+            designed to bring <strong>sensing, mobility, automation
+            and human decision-making</strong> together on a single
+            platform.
+          </p>
+
+          <p className="about-description">
+            Our vision is to develop a system that can continuously
+            monitor its surroundings, identify potential hazards,
+            assist in routine tasks, and communicate important
+            information to people in real time.
+          </p>
+
+          <p className="about-description">
+            By combining <strong>IoT, robotics, environmental sensing,
+            computer vision and web-based monitoring</strong>, NEXUS
+            aims to create smarter environments where technology
+            does not simply observe problems — it helps people
+            respond to them.
+          </p>
+
+        </div>
+
+        {/* ================= FEATURES CARD ================= */}
+        <div className="card about-card features-card">
+
+          <div className="about-card-header">
+            <div className="about-icon features-icon">
+              <Cpu size={22} />
+            </div>
+
+            <div>
+              <h3>Core Features</h3>
+              <span className="about-card-subtitle">
+                What makes NEXUS intelligent
+              </span>
+            </div>
+          </div>
+
+          {/* Features Accordion */}
+          <div className="accordion-list">
+
+            {features.map((feature) => (
+              <div
+                className="accordion-item"
+                key={feature.key}
+                data-key={feature.key}
+              >
+
+                {/* Accordion Header */}
+                <button
+                  type="button"
+                  className="accordion-header"
+                  onClick={() =>
+                    setOpen(
+                      open === feature.key
+                        ? null
+                        : feature.key
+                    )
+                  }
+                  aria-expanded={open === feature.key}
+                >
+
+                  <div className="accordion-number">
+                    {feature.number}
+                  </div>
+
+                  <div className="accordion-title-wrap">
+
+                    <div className="accordion-title">
+                      {feature.title}
+
+                      {feature.tag && (
+                        <span className="feature-tag">
+                          {feature.tag}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="accordion-subtitle">
+                      {feature.subtitle}
+                    </div>
+
+                  </div>
+
+                  <ChevronDown
+                    size={18}
+                    className={`accordion-chevron ${
+                      open === feature.key ? 'open' : ''
+                    }`}
+                  />
+
+                </button>
+
+                {/* Accordion Body */}
+                {open === feature.key && (
+                  <div className="accordion-body">
+                    <div className="accordion-body-inner">
+                      {feature.description}
+                    </div>
+                  </div>
+                )}
+
               </div>
-
-              <div className="accordion-title-wrap">
-
-                <div className="accordion-title">
-                  {feature.title}
-
-                  {feature.tag && (
-                    <span className="feature-tag">
-                      {feature.tag}
-                    </span>
-                  )}
-                </div>
-
-                <div className="accordion-subtitle">
-                  {feature.subtitle}
-                </div>
-
-              </div>
-
-              <ChevronDown
-                size={18}
-                className={`accordion-chevron ${
-                  open === feature.key ? 'open' : ''
-                }`}
-              />
-
-            </button>
-
-
-            {/* Accordion Body */}
-            {open === feature.key && (
-              <div className="accordion-body">
-                <div className="accordion-body-inner">
-                  {feature.description}
-                </div>
-              </div>
-            )}
+            ))}
 
           </div>
-        ))}
+
+        </div>
 
       </div>
 
-
       {/* About Description */}
-      <p className="muted lead">
+      <p className="muted lead about-footer">
         Nexus follows a black tape route, stops for obstacles,
         records attendance and watches for gas and fire.
         Everything is monitored from this portal.
       </p>
-
-
-      {/* Hardware Specifications */}
-    
-
-      
 
     </Panel>
   )
