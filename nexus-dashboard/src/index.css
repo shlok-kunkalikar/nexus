@@ -571,3 +571,392 @@ main { min-width: 0; }
   outline-offset: -3px;
   border-radius: 10px;
 }
+
+/* ========================================
+   ABOUT PROJECT / OUR VISION
+======================================== */
+
+.about-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent, #00d4ff);
+  margin-bottom: 14px;
+}
+
+.vision-section {
+  margin-bottom: 28px;
+}
+
+.vision-card {
+  position: relative;
+  padding: 26px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 212, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+}
+
+.vision-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent, #00d4ff);
+  border-radius: 3px;
+}
+
+.vision-quote {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--text, #ffffff);
+  margin-bottom: 22px;
+  padding-left: 14px;
+}
+
+.vision-text {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--muted, #9ca3af);
+  margin-bottom: 16px;
+}
+
+.vision-text strong {
+  color: var(--text, #ffffff);
+  font-weight: 600;
+}
+
+.vision-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .vision-card {
+    padding: 20px;
+  }
+
+  .vision-quote {
+    font-size: 17px;
+  }
+
+  .vision-text {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+}
+
+
+/* ========================================
+   ABOUT PROJECT
+======================================== */
+
+.about-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent, #00d4ff);
+  margin-bottom: 16px;
+}
+
+/* TWO CARD LAYOUT */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+/* CARD BASE */
+
+.about-card {
+  padding: 24px;
+  border-radius: 18px;
+  background: var(--card-bg, rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0,212,255,0.25);
+}
+
+/* CARD HEADER */
+
+.about-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.about-card-header h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text, #ffffff);
+  margin: 0 0 4px;
+}
+
+.about-card-subtitle {
+  font-size: 11px;
+  color: var(--muted, #9ca3af);
+}
+
+/* ICON */
+
+.about-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vision-icon {
+  color: #00d4ff;
+  background: rgba(0,212,255,0.12);
+  border: 1px solid rgba(0,212,255,0.15);
+}
+
+.features-icon {
+  color: #a78bfa;
+  background: rgba(167,139,250,0.12);
+  border: 1px solid rgba(167,139,250,0.15);
+}
+
+/* VISION CARD */
+
+.vision-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.vision-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #00d4ff;
+  opacity: 0.8;
+}
+
+.vision-quote {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--text, #ffffff);
+  margin-bottom: 20px;
+}
+
+.about-description {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--muted, #9ca3af);
+  margin-bottom: 16px;
+}
+
+.about-description strong {
+  color: var(--text, #ffffff);
+  font-weight: 600;
+}
+
+.about-description:last-child {
+  margin-bottom: 0;
+}
+
+/* FEATURES CARD */
+
+.features-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.features-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: #a78bfa;
+  opacity: 0.8;
+}
+
+/* ACCORDION LIST */
+
+.features-card .accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.features-card .accordion-item {
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.015);
+  overflow: hidden;
+  transition: border-color 0.25s ease,
+              background 0.25s ease;
+}
+
+.features-card .accordion-item:hover {
+  border-color: rgba(167,139,250,0.25);
+  background: rgba(167,139,250,0.03);
+}
+
+/* ACCORDION HEADER */
+
+.features-card .accordion-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
+  padding: 13px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.features-card .accordion-number {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: rgba(167,139,250,0.1);
+  color: #a78bfa;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.features-card .accordion-title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.features-card .accordion-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--text, #ffffff);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.features-card .accordion-subtitle {
+  color: var(--muted, #9ca3af);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* FEATURE TAG */
+
+.features-card .feature-tag {
+  padding: 3px 7px;
+  border-radius: 6px;
+  font-size: 9px;
+  font-weight: 600;
+  color: #a78bfa;
+  background: rgba(167,139,250,0.1);
+  border: 1px solid rgba(167,139,250,0.15);
+}
+
+/* CHEVRON */
+
+.features-card .accordion-chevron {
+  color: var(--muted, #9ca3af);
+  transition: transform 0.25s ease;
+}
+
+.features-card .accordion-chevron.open {
+  transform: rotate(180deg);
+  color: #a78bfa;
+}
+
+/* ACCORDION BODY */
+
+.features-card .accordion-body {
+  display: grid;
+  grid-template-rows: 1fr;
+  animation: featureExpand 0.25s ease;
+}
+
+.features-card .accordion-body-inner {
+  padding: 0 14px 15px 55px;
+  color: var(--muted, #9ca3af);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+@keyframes featureExpand {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* FOOTER TEXT */
+
+.about-footer {
+  margin-top: 12px;
+  line-height: 1.8;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1000px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-card {
+    padding: 18px;
+  }
+
+  .vision-quote {
+    font-size: 16px;
+  }
+
+  .about-description {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  .features-card .accordion-header {
+    padding: 11px;
+    gap: 10px;
+  }
+
+  .features-card .accordion-body-inner {
+    padding-left: 50px;
+  }
+}
