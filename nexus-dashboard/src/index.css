@@ -102,3 +102,472 @@ main { min-width: 0; }
   .top, .content { padding-inline: 16px; } .hero { min-height: 440px; } .o2 { display: none; } .specs { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+
+
+/* ================================
+   NEXUS DASHBOARD - WARNINGS
+================================ */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+/* Common text */
+
+.muted {
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.lead {
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+.big {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin: 15px 0;
+  color: #f8fafc;
+}
+
+.big small {
+  font-size: 14px;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: 0;
+}
+
+/* Empty states */
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* ================================
+   ALERT HISTORY
+================================ */
+
+.feed {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feed li {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 14px;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.feed li.critical,
+.feed li.warning {
+  border-left: 3px solid #ef4444;
+  background: rgba(239, 68, 68, 0.06);
+}
+
+.feed time {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* ================================
+   CAMERA
+================================ */
+
+.viewport {
+  position: relative;
+  width: 100%;
+  min-height: 320px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #080d17;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.viewport img {
+  width: 100%;
+  height: 320px;
+  display: block;
+  object-fit: cover;
+  background: #080d17;
+}
+
+.noise {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #64748b;
+  text-align: center;
+  padding: 24px;
+}
+
+.noise svg {
+  color: #64748b;
+}
+
+.noise p {
+  color: #cbd5e1;
+  font-weight: 600;
+  margin: 0;
+  font-size: 16px;
+}
+
+.noise span {
+  font-size: 12px;
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.osd {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #e2e8f0;
+  font-family: monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  backdrop-filter: blur(8px);
+}
+
+/* ================================
+   RFID ATTENDANCE
+================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Attendance table */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 10px;
+  color: #94a3b8;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.table td {
+  padding: 13px 10px;
+  color: #cbd5e1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.mono {
+  font-family: monospace;
+  color: #94a3b8 !important;
+}
+
+/* ================================
+   ABOUT / KEY FEATURES
+================================ */
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.card-title svg {
+  color: #60a5fa;
+}
+
+/* Accordion container */
+
+.accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.accordion-item {
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+/* Accordion header */
+
+.accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  transition: background 0.2s ease;
+}
+
+.accordion-header:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.accordion-number {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(59, 130, 246, 0.12);
+  color: #60a5fa;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.accordion-title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.accordion-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.accordion-subtitle {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.accordion-chevron {
+  color: #64748b;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.accordion-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Accordion content */
+
+.accordion-body {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  animation: accordionFade 0.25s ease;
+}
+
+.accordion-body-inner {
+  padding: 18px 20px;
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* ================================
+   HARDWARE SPECIFICATIONS
+================================ */
+
+.specs {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  gap: 0;
+}
+
+.specs > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.specs > div:last-child {
+  border-bottom: none;
+}
+
+.specs dt {
+  font-size: 13px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.specs dd {
+  margin: 0;
+  text-align: right;
+  color: #e2e8f0;
+  font-size: 13px;
+}
+
+/* ================================
+   ANIMATIONS
+================================ */
+
+@keyframes accordionFade {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .wide {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .viewport,
+  .viewport img,
+  .noise {
+    min-height: 240px;
+    height: 240px;
+  }
+
+  .big {
+    font-size: 32px;
+  }
+
+  .accordion-header {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .specs > div {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .specs dt,
+  .specs dd {
+    font-size: 12px;
+  }
+
+  .table {
+    font-size: 11px;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 6px;
+  }
+}
+
+/* Feature tag */
+.feature-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 9px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* Accordion header */
+.accordion-header {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Accordion arrow */
+.accordion-chevron {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.accordion-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Hardware heading */
+.hardware-heading {
+  margin-top: 28px;
+}
+
+/* Accordion focus */
+.accordion-header:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: -3px;
+  border-radius: 10px;
+}
