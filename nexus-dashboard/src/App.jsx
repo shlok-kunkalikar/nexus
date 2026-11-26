@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import {
   LayoutDashboard,
@@ -57,6 +57,14 @@ export default function App() {
   const d = useTelemetry()
   const { t } = d
 
+  // ATTENDANCE ACCESS CONTROL
+  // Attendance is available only in Office mode
+  useEffect(() => {
+    if (t.mode !== 'office' && page === 'attendance') {
+      setPage('dashboard')
+    }
+  }, [t.mode, page])
+
   // ALERT COUNT
   const alerts = d.events.filter(
     (e) => e.level === 'critical'
@@ -86,28 +94,32 @@ export default function App() {
 
         {/* NAVIGATION */}
         <nav>
-          {NAV.map(([id, label, Icon]) => (
+          {NAV
+            .filter(([id]) =>
+              id !== 'attendance' || t.mode === 'office'
+            )
+            .map(([id, label, Icon]) => (
 
-            <button
-              key={id}
-              className={page === id ? 'on' : ''}
-              onClick={() => setPage(id)}
-              aria-current={
-                page === id ? 'page' : undefined
-              }
-            >
+              <button
+                key={id}
+                className={page === id ? 'on' : ''}
+                onClick={() => setPage(id)}
+                aria-current={
+                  page === id ? 'page' : undefined
+                }
+              >
 
-              <Icon size={18} />
+                <Icon size={18} />
 
-              {label}
+                {label}
 
-              {id === 'warning' && !secure && (
-                <span className="dot-alert" />
-              )}
+                {id === 'warning' && !secure && (
+                  <span className="dot-alert" />
+                )}
 
-            </button>
+              </button>
 
-          ))}
+            ))}
         </nav>
 
         {/* SYSTEM SECURITY STATUS */}
@@ -192,6 +204,7 @@ export default function App() {
         {/* DYNAMIC PAGE CONTENT */}
         <div className="content">
 
+          {/* DASHBOARD */}
           {page === 'dashboard' && (
             <Dashboard
               t={t}
@@ -199,20 +212,24 @@ export default function App() {
             />
           )}
 
+          {/* WARNINGS */}
           {page === 'warning' && (
             <Warnings {...d} />
           )}
 
+          {/* CAMERA */}
           {page === 'camera' && (
             <CameraPage
               state={t.state}
             />
           )}
 
-          {page === 'attendance' && (
+          {/* ATTENDANCE - OFFICE MODE ONLY */}
+          {page === 'attendance' && t.mode === 'office' && (
             <Attendance {...d} />
           )}
 
+          {/* ABOUT */}
           {page === 'about' && (
             <About />
           )}
