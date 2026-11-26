@@ -1,5 +1,5 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   LayoutDashboard,
@@ -35,20 +35,48 @@ export default function App() {
   // CURRENT PAGE
   const [page, setPage] = useState('dashboard')
 
-  // AUTHENTICATION
-  const [authenticated, setAuthenticated] = useState(
-    () => localStorage.getItem('nexus-auth') === 'true'
-  )
+  // AUTHENTICATION: verify the saved token with the backend on page load
+  const [authenticated, setAuthenticated] = useState(false)
+  const [authChecking, setAuthChecking] = useState(true)
+  const [currentUser, setCurrentUser] = useState(null)
+
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
+  useEffect(() => {
+    const token = localStorage.getItem('nexus-token')
+    if (!token) {
+      setAuthChecking(false)
+      return
+    }
+
+    fetch(`${API_URL}/api/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}))
+        if (!response.ok) throw new Error(data.message || 'Session expired')
+        setCurrentUser(data.user)
+        setAuthenticated(true)
+      })
+      .catch(() => {
+        localStorage.removeItem('nexus-token')
+        setCurrentUser(null)
+        setAuthenticated(false)
+      })
+      .finally(() => setAuthChecking(false))
+  }, [])
 
   // LOGIN FUNCTION
-  const login = () => {
-    localStorage.setItem('nexus-auth', 'true')
+  const login = (data) => {
+    localStorage.setItem('nexus-token', data.token)
+    setCurrentUser(data.user)
     setAuthenticated(true)
   }
 
   // LOGOUT FUNCTION
   const logout = () => {
-    localStorage.removeItem('nexus-auth')
+    localStorage.removeItem('nexus-token')
+    setCurrentUser(null)
     setAuthenticated(false)
     setPage('dashboard')
   }
@@ -69,7 +97,11 @@ export default function App() {
   const title =
     NAV.find((n) => n[0] === page)?.[1] || 'Dashboard'
 
-  // SHOW LOGIN PAGE IF NOT AUTHENTICATED
+  // CHECKING OR SHOWING LOGIN PAGE
+  if (authChecking) {
+    return <div className="auth-screen"><p>Checking NEXUS session...</p></div>
+  }
+
   if (!authenticated) {
     return <Auth onLogin={login} />
   }
@@ -149,7 +181,7 @@ export default function App() {
 
           <div>
             <h1>{title}</h1>
-            <p>Welcome back, User-1</p>
+            <p>Welcome back, {currentUser?.name || currentUser?.nexId || 'User'}</p>
           </div>
 
           <div className="who">
@@ -169,12 +201,12 @@ export default function App() {
 
             {/* USER DETAILS */}
             <div className="user">
-              <strong>User-1</strong>
-              <span>Administrator</span>
+              <strong>{currentUser?.nexId || 'NEXUS User'}</strong>
+              <span>{currentUser?.role || 'operator'}</span>
             </div>
 
             <div className="avatar">
-              U1
+              {(currentUser?.nexId || 'NX').slice(0, 2).toUpperCase()}
             </div>
 
             {/* LOGOUT */}
