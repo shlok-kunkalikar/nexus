@@ -8,6 +8,7 @@ export default function Dashboard({ t, setMode }) {
     <div className="grid-dash">
       <Panel className="stage"><RobotHero state={t.state} /></Panel>
       <aside className="stack">
+ {/*Robot mode======================================================*/}
         <Panel title="Robot mode" icon={Cpu}>
           <div className="seg" role="radiogroup" aria-label="Robot mode">
             {[['house', Home, 'House'], ['office', Building2, 'Office']].map(([id, Icon, label]) => (
@@ -20,11 +21,13 @@ export default function Dashboard({ t, setMode }) {
           <dl className="kv"><dt>Current mode</dt><dd>{t.mode === 'house' ? 'House' : 'Office'}</dd></dl>
         </Panel>
 
+   {/*Robot status======================================================*/}
         <Panel title="Robot status" icon={Radar}>
           <dl className="kv"><dt>Connection</dt>
             <dd><Badge tone={t.online ? 'ok' : 'critical'}>{t.online ? 'Online' : 'Offline'}</Badge></dd></dl>
         </Panel>
 
+   {/*Robot battery======================================================*/}
         <Panel title="Battery" icon={BatteryMedium}>
           <div className="battery">
             <Ring value={t.battery} tone={low ? 'critical' : 'accent'} label={`${Math.round(t.battery)}%`} sub="charge" />
