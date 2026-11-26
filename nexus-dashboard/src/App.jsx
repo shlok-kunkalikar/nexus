@@ -2,7 +2,10 @@ import { useState } from 'react'
 import { LayoutDashboard, TriangleAlert, Camera, UserCheck, Info, Bell, ShieldCheck, ShieldAlert } from 'lucide-react'
 import { useTelemetry } from './hooks/useTelemetry'
 import Dashboard from './pages/Dashboard'
-import { Warnings, CameraPage, Attendance, About } from './pages/Pages'
+import { Warnings } from './pages/Warning'
+import { CameraPage } from './pages/Camera'
+import { Attendance } from './pages/Attendance'
+import { About } from './pages/About'
 
 const NAV = [
   ['dashboard', 'Dashboard', LayoutDashboard], ['warning', 'Warning', TriangleAlert],
