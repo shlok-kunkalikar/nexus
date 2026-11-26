@@ -24,7 +24,7 @@ export default function Auth({ onLogin }) {
         <div className="auth-card">
           <div className="auth-brand auth-brand-inside">
             <div className="auth-logo">NEXUS</div>
-            <p>SMART ROVER. SMARTER CONTROL.</p>
+             <p>SAFETY SENSING & SECURITY</p>
           </div>
 
           <div className="auth-card-heading">
