@@ -13,7 +13,22 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 
 .app { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
 .side { display: flex; flex-direction: column; gap: 28px; padding: 28px 16px; border-right: 1px solid var(--line); background: rgba(8,12,20,.6); position: sticky; top: 0; height: 100vh; }
-.brand { font-size: 26px; font-weight: 700; letter-spacing: .22em; padding: 0 12px; }
+.brand { 
+  font-family: 'Orbitron', sans-serif;
+  font-size: 26px; 
+  font-weight: 700; 
+  letter-spacing: .22em; 
+  padding: 0 12px; 
+}
+
+@font-face {
+  font-family: 'HK Modular';
+  src: url('/fonts/HK-Modular.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 .side nav { display: grid; gap: 4px; flex: 1; align-content: start; }
 .side nav button { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; color: var(--muted); position: relative; transition: background .15s, color .15s; }
 .side nav button:hover { color: var(--text); background: var(--raised); }
@@ -1059,4 +1074,3 @@ main { min-width: 0; }
   }
 
 }
-
