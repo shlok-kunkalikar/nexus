@@ -153,33 +153,8 @@ export default function App() {
             ))}
         </nav>
 
-        {/* SYSTEM SECURITY STATUS */}
-        <div className={`secure ${secure ? '' : 'bad'}`}>
-
-          {secure ? (
-            <ShieldCheck size={18} />
-          ) : (
-            <ShieldAlert size={18} />
-          )}
-
-          <div>
-
-            <strong>
-              {secure ? 'System secure' : 'Alert active'}
-            </strong>
-
-            <span>
-              {secure
-                ? 'All systems operating normally'
-                : 'Check the warnings page'}
-            </span>
-
-          </div>
-
-        </div>
-
         <small className="ver">
-          v 26.04.06
+          v 1.0.0
         </small>
 
       </aside>
