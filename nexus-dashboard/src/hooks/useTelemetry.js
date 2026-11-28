@@ -1,0 +1,135 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+import {
+  API,
+  GAS_LIMIT,
+  STATE_COPY,
+  rnd,
+  deriveState,
+  fetchRobotStatus,
+} from './telemetryConfig'
+import { useBattery } from './useBattery'
+import { useGasFlame } from './useGasFlame'
+import { useCamera } from './useCamera'
+import { useAttendance } from './useAttendance'
+
+export { STATE_COPY, GAS_LIMIT }
+
+export function useTelemetry() {
+  const [mode, setModeState] = useState('house')
+  const [online, setOnline] = useState(true)
+  const [distance, setDistance] = useState(120)
+  const [ir, setIr] = useState([0, 1, 0])
+  const [events, setEvents] = useState([])
+  const wasHazard = useRef(false)
+  const seenAlertIds = useRef(new Set())
+
+  const log = useCallback(
+    (level, message) =>
+      setEvents((e) => [{ id: crypto.randomUUID(), level, message, time: new Date() }, ...e].slice(0, 60)),
+    []
+  )
+
+  const { battery, voltage, syncBattery, simulateBatteryTick } = useBattery(82)
+  const {
+    gas,
+    flame,
+    gasHistory,
+    isGasDetected,
+    isFlameDetected,
+    hazardDetected,
+    syncGasFlame,
+  } = useGasFlame(180, false)
+  const { camUrl, syncCamera } = useCamera()
+  const { attendance, syncAttendance, tapCard } = useAttendance(log)
+
+  const state = deriveState({ gas, flame, distance })
+
+  useEffect(() => {
+    const tick = async () => {
+      if (API) {
+        try {
+          const data = await fetchRobotStatus()
+          setOnline(true)
+          if (data.mode) setModeState(data.mode)
+          if (typeof data.distance === 'number') setDistance(data.distance)
+          if (Array.isArray(data.ir)) setIr(data.ir)
+
+          syncBattery(data.battery)
+          syncGasFlame(data)
+          syncCamera(data.camUrl)
+          syncAttendance(data.attendance)
+
+          // Only add backend alerts that correspond to active gas/flame and haven't been logged yet
+          if (Array.isArray(data.alerts) && data.alerts.length > 0) {
+            const freshAlerts = data.alerts
+              .filter((a) => !seenAlertIds.current.has(a.id))
+              .map((a) => {
+                seenAlertIds.current.add(a.id)
+                return {
+                  ...a,
+                  level: a.level || 'critical',
+                  time: a.time ? new Date(a.time) : new Date(),
+                }
+              })
+
+            if (freshAlerts.length > 0) {
+              setEvents((existing) => [...freshAlerts, ...existing].slice(0, 60))
+            }
+          }
+        } catch {
+          setOnline(false)
+        }
+        return
+      }
+
+      // Safe baseline fallback when no API is configured (no random gas/flame spikes)
+      simulateBatteryTick()
+      setDistance(rnd(40, 160))
+      setIr([0, 1, 0])
+    }
+
+    tick()
+    const id = setInterval(tick, 1500)
+    return () => clearInterval(id)
+  }, [syncBattery, syncGasFlame, syncCamera, syncAttendance, simulateBatteryTick])
+
+  // Notify ONLY when gas or flame sensor crosses into detection
+  useEffect(() => {
+    if (hazardDetected && !wasHazard.current) {
+      if (isFlameDetected && isGasDetected) {
+        log('critical', `Flame and high gas (${Math.round(gas)} ppm) detected by robot sensors.`)
+      } else if (isFlameDetected) {
+        log('critical', 'Flame detected by robot sensor.')
+      } else if (isGasDetected) {
+        log('critical', `Gas leak detected (${Math.round(gas)} ppm, limit ${GAS_LIMIT}).`)
+      }
+    }
+    wasHazard.current = hazardDetected
+  }, [hazardDetected, isFlameDetected, isGasDetected, gas, log])
+
+  const setMode = (nextMode) => {
+    setModeState(nextMode)
+    log('info', `Switched to ${nextMode} mode.`)
+  }
+
+  return {
+    t: {
+      mode,
+      online,
+      battery,
+      voltage,
+      gas,
+      flame,
+      distance,
+      ir,
+      camUrl,
+      state,
+    },
+    gasHistory,
+    events,
+    attendance,
+    tapCard,
+    setMode,
+    GAS_LIMIT,
+  }
+}
